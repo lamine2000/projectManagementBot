@@ -98,7 +98,7 @@ public class Bot extends ListenerAdapter {
                                 new OptionData(STRING, "command", "The command to show the help for").setRequired(false)));
 
         commands.addCommands(
-                Commands.slash("ping", "Ping the bot. It should respond with pong"));
+                Commands.slash("ping", "Ping the bot."));
 
         commands.queue();
     }
