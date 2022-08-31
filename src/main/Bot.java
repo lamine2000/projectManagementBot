@@ -1,4 +1,4 @@
-package com.lamine.main;
+package main;
 
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
