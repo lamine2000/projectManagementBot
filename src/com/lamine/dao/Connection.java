@@ -14,7 +14,7 @@ public class Connection {
 
         try{
             MongoClient mongoClient = MongoClients.create(connectionString);
-            discordBotsDB = mongoClient.getDatabase("discordBots");
+            discordBotsDB = mongoClient.getDatabase("projectManagerBot");
             return discordBotsDB;
         }catch (Exception e){
             throw new Exception("Connection to database failed");
