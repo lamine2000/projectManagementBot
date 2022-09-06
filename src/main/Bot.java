@@ -105,7 +105,8 @@ public class Bot extends ListenerAdapter {
 
     @Override
     public void onReady(@NotNull ReadyEvent event) {
-        System.out.println("Bot is ready!");
+        System.out.println("The ProjectManager Bot is ready!");
+        System.out.println("Logged in as " + event.getJDA().getSelfUser().getAsTag());
     }
 
     @Override
