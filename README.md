@@ -10,17 +10,19 @@ It also allows:
 
 Database Schema (database collections architechture):
 - guilds
-    - users
-    - projects
-        - tasks
+- users
+- projects
+- tasks
 
 Technologies used:
 - MongoDB
 - JDA-5.0.0-alpha.17 (JAVA Discord API)
+- Maven
 
 TODO:
 - [ ] Generate logs messages
-- [ ] Implement command to create a new project (and reverse)
+- [x] Implement ping command
+- [x] Implement command to create a new project (and reverse)
 - [ ] Implement command to create a new task (and reverse)
 - [ ] Implement command to assign a task to a user (and reverse)
 - [ ] Implement command to change the state of a task (and reverse)
@@ -29,5 +31,5 @@ TODO:
 - [ ] Create a testing environment
 - [ ] Write tests
 - [ ] Create a CI/CD pipeline
-- [ ] Create a API to manage the tasks
+- [ ] Create a web API to manage the tasks
 
