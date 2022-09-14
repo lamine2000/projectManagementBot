@@ -1,5 +1,7 @@
 package main;
 
+import com.lamine.dao.TasksOrganizerDAO;
+import com.lamine.model.Project;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.ReadyEvent;
@@ -13,9 +15,13 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.security.auth.login.LoginException;
 
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
 import static net.dv8tion.jda.api.interactions.commands.OptionType.STRING;
 
 public class Bot extends ListenerAdapter {
+    final TasksOrganizerDAO dao = new TasksOrganizerDAO();
     public static void main(String[] args) throws LoginException {
         if (args.length < 1) {
             System.out.println("Missing argument : token");
@@ -138,7 +144,21 @@ public class Bot extends ListenerAdapter {
                 break;
 
             case "createproject" :
-                event.reply("Create a new project").queue();
+                event.getChannel().sendMessage("Creation of new Project...").queue(response ->
+                        {
+                            Project project = new Project(event.getOption("project").getAsString());
+                            if(event.getOption("description") != null)
+                                project.setDescription(event.getOption("description").getAsString());
+
+                            try {
+                                dao.createProject(project);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+
+                            response.editMessageFormat("Project %s created !", project.getName()).queue();
+                        }
+                );
                 break;
 
             case "removeproject" :
@@ -166,7 +186,11 @@ public class Bot extends ListenerAdapter {
                 break;
 
             case "ping" :
-                event.reply("Ping the bot").queue();
+                long time = System.currentTimeMillis();
+                event.getChannel().sendMessage("Pong !").queue(response -> {
+                    long ping = event.getTimeCreated().until(response.getTimeCreated(), ChronoUnit.MILLIS);
+                    response.editMessage("Ping: " + ping + "ms | Websocket: " + event.getJDA().getGatewayPing() + "ms").queue();
+                });
                 break;
 
             default :
